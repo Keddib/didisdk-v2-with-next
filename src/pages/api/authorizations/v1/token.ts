@@ -1,12 +1,10 @@
 import axios from "axios";
 import { isAxiosError } from "axios";
-import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async (req: Request,) => {
+const handler = async (req: NextApiRequest,res: NextApiResponse) => {
   if (req.method === "POST") {
-  const formData = await req.formData();
-  const code = formData.get('code')?.toString() || '';
-  const walletSignature = formData.get('wallet_signature')?.toString() || '';
+  const {code, wallet_signature} = await req.body;
 
     const auth = Buffer.from(
       `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`
@@ -19,7 +17,7 @@ const handler = async (req: Request,) => {
     const data = {
       code: code,
       grant_type: "https://gamium.world/oauth/grant_types/connectwallet",
-      wallet_signature: walletSignature,
+      wallet_signature,
     };
 
     try {
@@ -28,20 +26,17 @@ const handler = async (req: Request,) => {
         data,
         { headers }
       );
-      NextResponse.json(token_response.data, { status: token_response.status })
+      res.status(token_response.status).json(token_response.data);
     } catch (error) {
       if (isAxiosError(error)) {
         const errorData = error.response?.data || { message: error.message };
-        NextResponse.json(
-          errorData,
-          { status: error.response?.status || 500 }
-        );
+        res.status(error.response?.status || 500).json({ message: errorData });
       } else {
-        NextResponse.json(error, { status: 500 })
+        res.status(500).json({ message: error });
       }
     }
   } else {
-    NextResponse.json({ message: `Method ${req.method} Not Allowed` }, { status: 405 });
+    res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 };
 

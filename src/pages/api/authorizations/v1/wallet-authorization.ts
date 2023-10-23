@@ -1,11 +1,10 @@
 import axios from "axios";
 import { isAxiosError } from "axios";
-import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const handler = async (req : Request) => {
+const handler = async (req: NextApiRequest,res: NextApiResponse) => {
   if (req.method === "POST") {
-    const formData = await req.formData();
-    const wallet_address = formData.get("wallet_address")?.toString() || "";
+    const {wallet_address} = await req.body;
     const scope = process.env.NEXT_PUBLIC_DIDIT_SCOPE;
     const claims = process.env.NEXT_PUBLIC_DIDIT_CLAIMS;
 
@@ -29,20 +28,17 @@ const handler = async (req : Request) => {
         data,
         { headers }
       );
-      NextResponse.json(wallet_authorization_response.data, { status: wallet_authorization_response.status })
+      res.status(wallet_authorization_response.status).json(wallet_authorization_response.data);
     } catch (error) {
       if (isAxiosError(error)) {
         const errorData = error.response?.data || { message: error.message };
-        NextResponse.json(
-          errorData,
-          { status: error.response?.status || 500 }
-        );
+        res.status(error.response?.status || 500).json({ message: errorData });
       } else {
-        NextResponse.json(error, { status: 500 })
+        res.status(500).json({ message: error });
       }
     }
   } else {
-NextResponse.json({ message: `Method ${req.method} Not Allowed` }, { status: 405 });
+    res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 };
 
