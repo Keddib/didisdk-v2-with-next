@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
     >
       <DiditAuthProvider
         authMethods={[DiditAuthMethod.WALLET, DiditAuthMethod.GOOGLE]}
-        baseUrl="http://localhost:3000/api"
+        baseUrl={process.env. NEXT_PUBLIC_DIDIT_AUTH_BASE_URL}
         clientId={process.env.NEXT_PUBLIC_DIDIT_CLIENT_ID || ''}
         claims={ process.env.NEXT_PUBLIC_DIDIT_CLAIMS}
         scope={process.env.NEXT_PUBLIC_DIDIT_SCOPE}
