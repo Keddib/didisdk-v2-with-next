@@ -23,17 +23,21 @@ const handler = async (req: NextApiRequest,res: NextApiResponse) => {
     };
 
     try {
+      const url = process.env.API_URL + "wallet-authorization/";
+      console.log('url->', url);
       const wallet_authorization_response = await axios.post(
-        process.env.API_URL + "wallet-authorization/",
+        url,
         data,
         { headers }
       );
       res.status(wallet_authorization_response.status).json(wallet_authorization_response.data);
     } catch (error) {
       if (isAxiosError(error)) {
+        console.log('auth error->', error.response?.data);
         const errorData = error.response?.data || { message: error.message };
         res.status(error.response?.status || 500).json({ message: errorData });
       } else {
+        console.log('auth error->2', error);
         res.status(500).json({ message: error });
       }
     }

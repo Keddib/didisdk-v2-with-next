@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.5.1
     version: 1.5.1
   diditsdktest:
-    specifier: ^2.0.2
-    version: 2.0.2(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0)(viem@1.16.6)(wagmi@1.4.5)
+    specifier: ^2.0.3
+    version: 2.0.3(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0)(viem@1.16.6)(wagmi@1.4.5)
   next:
     specifier: 13.5.6
     version: 13.5.6(react-dom@18.2.0)(react@18.2.0)
@@ -1843,8 +1843,8 @@ packages:
     resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
     dev: false
 
-  /diditsdktest@2.0.2(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0)(viem@1.16.6)(wagmi@1.4.5):
-    resolution: {integrity: sha512-xBkat83NPYk/2w7rUN4cdeGzxKHQ1pTZGlNTQsClxeIlrt1LMWpZuLDptav6tnf6wyORKIIarhGf0WJJohAkfQ==}
+  /diditsdktest@2.0.3(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0)(viem@1.16.6)(wagmi@1.4.5):
+    resolution: {integrity: sha512-0UNqaX/KSHjLEEKl5FzXQ59hQgHiuZOi/xS00dit1W8SxTT0bL4ieEZVh9RALXUHS3ExFPNMcCrZE82qYWwH9Q==}
     engines: {node: '>=12.4'}
     peerDependencies:
       react: '>=17'

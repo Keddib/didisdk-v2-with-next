@@ -21,8 +21,9 @@ const handler = async (req: NextApiRequest,res: NextApiResponse) => {
     };
 
     try {
+      const url = process.env.API_URL + "token/";
       const token_response = await axios.post(
-        process.env.API_URL + "token/",
+        url,
         data,
         { headers }
       );
